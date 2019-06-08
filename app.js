@@ -9,16 +9,27 @@ var indexRouter = require("./routes/index");
 var siofu = require("socketio-file-upload");
 
 var app = express();
-
+var whitelist = ["http://localhost:3000", undefined];
+var corsOptions = {
+  origin: function(origin, callback) {
+    console.log(origin);
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log("Not allowed by CORS");
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+};
+app.use(cors(corsOptions));
 var port = normalizePort(process.env.PORT || "4000");
 app.set("port", port);
 
 var server = http.createServer(app);
 server.listen(port, () => {
-  console.log("listning");
+  console.log("listning at port " + port);
 });
 
-app.use(cors());
 app.use(logger("dev"));
 app.use(siofu.router);
 app.use(express.json());

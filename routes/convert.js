@@ -1,9 +1,18 @@
+var fs = require("fs");
+const projectId = "speech-to-text-07062019";
+const keyFilename = "./key.json";
+try {
+  const data = fs.readFileSync(keyFilename, "ascii");
+} catch {
+  fs.writeFileSync(keyFilename, JSON.stringify(env.G_KEY));
+}
 async function main(audioBytes) {
   const speech = require("@google-cloud/speech");
   try {
     // Creates a client
-    const client = new speech.SpeechClient();
-    console.log();
+
+    const client = new speech.SpeechClient({ projectId, keyFilename });
+    console.log(keyFilename);
 
     const request = {
       audio: {
