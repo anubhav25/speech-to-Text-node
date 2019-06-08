@@ -1,22 +1,11 @@
 var express = require("express");
-var convert = require("./convert");
-var fs = require("fs");
 var router = express.Router();
-var upload = require("./modules/upload");
+//var upload = require("./modules/upload");
 
 /* GET home page. */
 router.get("/", async function(req, res, next) {
-  try {
-    const file = fs.readFileSync("./public/te.flac");
-    const audioBytes = file.toString("base64");
-    console.log(convert);
-    var a = await convert(audioBytes);
-    res.json(a);
-  } catch (err) {
-    console.log(err);
-    res.send("error");
-  }
-});
+  res.send("this is just a backend api");
+}); /*
 router.post("/", async function(req, res, next) {
   try {
     const audioBytes = req.body.data;
@@ -54,6 +43,6 @@ router.post("/voice", async (req, res) => {
     console.log(err);
     res.send("error");
   }
-});
+});*/
 
 module.exports = router;
