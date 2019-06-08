@@ -4,7 +4,7 @@ const keyFilename = "./key.json";
 try {
   const data = fs.readFileSync(keyFilename, "ascii");
 } catch {
-  fs.writeFileSync(keyFilename, JSON.stringify(env.G_KEY));
+  fs.writeFileSync(keyFilename, JSON.stringify(process.env.G_KEY));
 }
 async function main(audioBytes) {
   const speech = require("@google-cloud/speech");
