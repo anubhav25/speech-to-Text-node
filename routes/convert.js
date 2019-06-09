@@ -1,6 +1,6 @@
 var fs = require("fs");
 const projectId = "speech-to-text-07062019";
-const keyFilename = "./key.json";
+const keyFilename = "./routes/key.json";
 try {
   const data = fs.readFileSync(keyFilename, "ascii");
 } catch {

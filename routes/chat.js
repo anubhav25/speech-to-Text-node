@@ -9,6 +9,9 @@ module.exports = (server, siofu) => {
     var uploader = new siofu();
     uploader.dir = "./public";
     uploader.listen(socket);
+    uploader.on("error", e => {
+      console.log(e);
+    });
     uploader.on("saved", async obj => {
       console.log(obj);
       try {
@@ -20,19 +23,29 @@ module.exports = (server, siofu) => {
         console.log(data);
         socket.emit("message", {
           from: "me",
-          time: new Date(Date.now()).toLocaleString(),
           message: data
         });
         setTimeout(() => {
           socket.emit("message", {
             from: "server",
-            time: new Date(Date.now()).toLocaleString(),
             message: data
           });
         }, 1000);
       } catch (err) {
         console.log(err);
       }
+    });
+    socket.on("message_recieved", msg => {
+      socket.emit("message", {
+        from: "me",
+        message: msg.data
+      });
+      setTimeout(() => {
+        socket.emit("message", {
+          from: "server",
+          message: msg.data
+        });
+      }, 1000);
     });
     socket.on("disconnect", function(a) {
       console.log(a, "disconnected");
