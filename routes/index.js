@@ -3,9 +3,13 @@ var router = express.Router();
 //var upload = require("./modules/upload");
 
 /* GET home page. */
-router.get("/", async function(req, res, next) {
-  res.send("this is just a backend api");
-}); /*
+// router.get("/", async function(req, res, next) {
+//   res.send("this is just a backend api");
+// });
+router.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+/*
 router.post("/", async function(req, res, next) {
   try {
     const audioBytes = req.body.data;

@@ -7,7 +7,7 @@ module.exports = (server, siofu) => {
   io.on("connection", function(socket) {
     console.log("A new");
     var uploader = new siofu();
-    uploader.dir = "./public";
+    uploader.dir = "./public/uploads";
     uploader.listen(socket);
     uploader.on("error", e => {
       console.log(e);

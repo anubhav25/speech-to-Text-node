@@ -9,7 +9,12 @@ var indexRouter = require("./routes/index");
 var siofu = require("socketio-file-upload");
 
 var app = express();
-var whitelist = ["http://localhost:3000", undefined];
+var whitelist = [
+  "http://localhost:3000",
+  "http://localhost:4000",
+  "https://anubhav.openode.io",
+  undefined
+];
 var corsOptions = {
   origin: function(origin, callback) {
     console.log(origin);
@@ -36,6 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+//app.use(express.static(path.join(__dirname, "public/static")));
 var Chat = require("./routes/chat")(server, siofu);
 app.use("/", indexRouter);
 app.use("/chat", Chat);
